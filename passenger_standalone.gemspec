@@ -31,20 +31,22 @@ DESC
   spec.add_development_dependency "bundler", "~> 1.3"
 
   Gem.post_install do |installer|
-    root = installer.dir
-    begin
-      vendor_path = File.join(root, 'vendor/passenger')
-      nginx_tarball_path = Dir[File.join(root, "src/nginx-*.tar.gz")].first
-      target_path = File.join(vendor_path, PassengerStandalone.passenger_version)
-      unless File.exists?(target_path)
-        STDERR.puts("Attempting to install Nginx from #{nginx_tarball_path}")
-        system('passenger',
-               'package-runtime', vendor_path,
-               '--nginx-tarball', nginx_tarball_path)
+    if installer.spec.name == 'passenger_standalone'
+      root = installer.dir
+      begin
+        vendor_path = File.join(root, 'vendor/passenger')
+        nginx_tarball_path = Dir[File.join(root, "src/nginx-*.tar.gz")].first
+        target_path = File.join(vendor_path, PassengerStandalone.passenger_version)
+        unless File.exists?(target_path)
+          STDERR.puts("Attempting to install Nginx from #{nginx_tarball_path}")
+          system('passenger',
+                 'package-runtime', vendor_path,
+                 '--nginx-tarball', nginx_tarball_path)
+        end
+      rescue => e
+        STDERR.puts("Error installing Nginx: #{e.class.name}: #{e.message}")
+        raise
       end
-    rescue => e
-      STDERR.puts("Error installing Nginx: #{e.class.name}: #{e.message}")
-      raise
     end
   end
 end
