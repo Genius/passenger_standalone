@@ -27,6 +27,6 @@ DESC
   spec.default_executable = 'passenger_standalone'
 
   spec.add_dependency "passenger", PassengerStandalone.passenger_version
+  spec.add_dependency "rake"
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
 end
