@@ -1,0 +1,10 @@
+task :default do
+  require File.expand_path('../../lib/passenger_standalone/version', __FILE__)
+  src_files = Dir[File.expand_path("../../src/nginx-*.tar.gz", __FILE__)]
+  nginx_tarball_path = Dir[File.expand_path("../../src/nginx-*.tar.gz", __FILE__)].first
+  puts `ls #{File.expand_path("../../src", __FILE__)}`
+  vendor_path = File.expand_path('../../vendor/passenger', __FILE__)
+  system('passenger',
+         'package-runtime', vendor_path,
+         '--nginx-tarball', nginx_tarball_path)
+end
