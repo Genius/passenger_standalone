@@ -20,7 +20,7 @@ DESC
 
   spec.extensions << 'ext/Rakefile'
 
-  spec.files         = Dir["lib/**/*.rb"] + Dir["src/*"]
+  spec.files         = Dir["lib/**/*.rb"] + Dir["src/*"] + Dir["bin/*"] + Dir["ext/*"]
   spec.require_paths = ["lib"]
   spec.bindir = 'bin'
   spec.executables << 'passenger_standalone'
