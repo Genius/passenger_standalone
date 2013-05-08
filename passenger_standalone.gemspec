@@ -45,9 +45,9 @@ DESC
           else
             passenger = File.expand_path("../passenger-#{passenger_version}/bin/passenger", root)
           end
-          system(passenger,
-                 'package-runtime', vendor_path,
-                 '--nginx-tarball', nginx_tarball_path)
+          command = "#{passenger} package-runtime #{vendor_path} --nginx-tarball #{nginx_tarball_path}"
+          STDERR.puts "executing #{command}"
+          STDERR.puts `#{command}`
         end
       rescue Exception => e
         STDERR.puts("Error installing Nginx: #{e.class.name}: #{e.message}")
