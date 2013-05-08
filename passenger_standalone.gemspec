@@ -43,14 +43,15 @@ DESC
           if system('which', 'passenger')
             passenger = 'passenger'
           else
-            passenger = File.expand_path("../passenger-#{passenger_version}", root)
+            passenger = File.expand_path("../passenger-#{passenger_version}/bin/passenger", root)
           end
           system(passenger,
                  'package-runtime', vendor_path,
                  '--nginx-tarball', nginx_tarball_path)
         end
-      rescue => e
+      rescue Exception => e
         STDERR.puts("Error installing Nginx: #{e.class.name}: #{e.message}")
+        raise
       end
     end
   end
