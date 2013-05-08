@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 require File.expand_path('../../lib/passenger_standalone/version', __FILE__)
-dir = File.expand_path("../../vendor/passenger/#{PassengerStandalone::VERSION}", __FILE__)
+dir = File.expand_path("../../vendor/passenger/#{PassengerStandalone.passenger_version}", __FILE__)
 args = ARGV + %w(start)
 exec('passenger', 'start', *ARGV)

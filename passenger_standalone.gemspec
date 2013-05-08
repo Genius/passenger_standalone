@@ -26,7 +26,7 @@ DESC
   spec.executables << 'passenger_standalone'
   spec.default_executable = 'passenger_standalone'
 
-  spec.add_dependency "passenger", PassengerStandalone::VERSION
+  spec.add_dependency "passenger", PassengerStandalone.passenger_version
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
 end
