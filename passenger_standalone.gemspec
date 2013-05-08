@@ -36,16 +36,21 @@ DESC
       begin
         vendor_path = File.join(root, 'vendor/passenger')
         nginx_tarball_path = Dir[File.join(root, "src/nginx-*.tar.gz")].first
-        target_path = File.join(vendor_path, PassengerStandalone.passenger_version)
+        passenger_version = PassengerStandalone.passenger_version
+        target_path = File.join(vendor_path, passenger_version)
         unless File.exists?(target_path)
           STDERR.puts("Attempting to install Nginx from #{nginx_tarball_path}")
-          system('passenger',
+          if system('which', 'passenger')
+            passenger = 'passenger'
+          else
+            passenger = File.expand_path("../passenger-#{passenger_version}", root)
+          end
+          system(passenger,
                  'package-runtime', vendor_path,
                  '--nginx-tarball', nginx_tarball_path)
         end
       rescue => e
         STDERR.puts("Error installing Nginx: #{e.class.name}: #{e.message}")
-        raise
       end
     end
   end
