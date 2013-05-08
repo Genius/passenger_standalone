@@ -43,7 +43,7 @@ DESC
           if system('which', 'passenger')
             passenger = 'passenger'
           else
-            passenger = File.expand_path("../passenger-#{passenger_version}/bin/passenger", root)
+            passenger = File.join(Gem::Specification.find_by_name('passenger').bin_dir, 'passenger')
           end
           command = "#{passenger} package-runtime #{vendor_path} --nginx-tarball #{nginx_tarball_path}"
           STDERR.puts "executing #{command}"
